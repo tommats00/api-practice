@@ -1,0 +1,66 @@
+---
+title: "usgs-dataretrieval"
+author: "Tom Gibbens-Matsuyama"
+format: html
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## Load Libraries
+
+```{r}
+library(tidyverse)
+library(dataRetrieval)
+
+```
+
+## Query Details
+
+```{r}
+# Set parameters for the query
+
+siteNumber <- "11118500"
+parameterCd <- "00060" # Discharge
+startDate <- "2023-08-19"
+endDate <- "2023-08-22"
+
+```
+
+```{r}
+# Query the APIs 
+discharge <- readNWISuv(siteNumber, parameterCd, startDate, endDate)
+```
+
+## Plot the Data
+
+```{r}
+ggplot(discharge, aes(x = dateTime, y = X_00060_00000)) +
+  geom_line() +
+  labs(x = "Date",
+       y = "Discharge (ft^3/s)",
+       title = "Ventura River Discharge Time Series") +
+  theme_minimal()
+```
+
+
+## Query Details for Max
+
+```{r}
+siteNumber <- "11118500"
+parameterCd <- "00060" # Discharge
+startDate <- "2023-08-19"
+endDate <- "2023-08-22"
+```
+
+
+## Bonus
+
+```{r}
+## When was the stream gauge record started? 
+
+## From the documentation it started October 1st 1988
+
+
+```
+
